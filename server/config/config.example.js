@@ -1,6 +1,6 @@
 const config = {
   port: 3000,
-
+  tokenKey: 'yourTokenKey',
   database: {
     DATABASE: 'yourdatabase',
     USERNAME: 'youraccount',
