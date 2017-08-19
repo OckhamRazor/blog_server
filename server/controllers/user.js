@@ -1,6 +1,5 @@
 const userInfoService = require('./../services/userInfo')
-const userCode = require('./../codes/user')
-const decryptToken = require('../utils/token/decryptToken')
+const userToken = require('../utils/token/user_token')
 
 module.exports = {
 
@@ -20,11 +19,9 @@ module.exports = {
    * @param    {obejct} ctx 上下文对象
    */
   async getLoginUserInfo (ctx) {
-    // 解析token获取用户ID
-    const tokenInfo = await decryptToken(ctx)
-    
+    const tokenInfo = userToken.decryptToken(ctx) // 解析token获取用户ID
     let result = await userInfoService.getUserInfoById(tokenInfo.userId)
- 
+
     ctx.body = result
   },
 
@@ -35,7 +32,7 @@ module.exports = {
   async updateUserInfo (ctx) {
     let result
     let formData = ctx.request.body
-    
+
     result = await userInfoService.updateUserInfoById(formData.id, formData)
     ctx.body = result
   }

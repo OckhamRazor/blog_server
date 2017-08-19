@@ -4,10 +4,9 @@
 
 const router = require('koa-router')()
 const uploadController = require('../../controllers/upload')
-const checkToken = require('../../utils/token/checkToken')
+const userToken = require('../../utils/token/user_token')
 
 const routers = router
-  .post('/token', checkToken, uploadController.getUploadToken)
-  
+  .post('/token', userToken.checkToken, uploadController.getUploadToken)
 
 module.exports = routers

@@ -4,11 +4,10 @@
 
 const router = require('koa-router')()
 const userInfoController = require('../../controllers/user')
-const checkToken = require('../../utils/token/checkToken')
+const userToken = require('../../utils/token/user_token')
 
 const routers = router
-  .get('/', checkToken, userInfoController.getLoginUserInfo)
-  .put('/', checkToken, userInfoController.updateUserInfo)
-  
+  .get('/', userToken.checkToken, userInfoController.getLoginUserInfo)
+  .put('/', userToken.checkToken, userInfoController.updateUserInfo)
 
 module.exports = routers

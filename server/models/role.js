@@ -1,7 +1,7 @@
 /**
  * 角色模型
  */
-const dbUtils = require('../utils/db-util')
+const dbUtils = require('../utils/db_util')
 
 const role = {
   /**

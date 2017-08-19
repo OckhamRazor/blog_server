@@ -1,4 +1,4 @@
-const createUploadToken = require('../utils/token/createUploadToken')
+const createUploadToken = require('../utils/token/upload_token')
 
 module.exports = {
   /**
@@ -8,7 +8,7 @@ module.exports = {
   async getUploadToken (ctx) {
     const token = createUploadToken()
     ctx.body = {
-      token: token 
+      token: token
     }
   }
 }

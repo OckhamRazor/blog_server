@@ -1,7 +1,7 @@
 /**
  * 文章模型
  */
-const dbUtils = require('../utils/db-util')
+const dbUtils = require('../utils/db_util')
 
 const article = {
   /**
@@ -49,4 +49,4 @@ const article = {
   }
 }
 
-module.exports = user
+module.exports = article

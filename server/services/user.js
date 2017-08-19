@@ -22,48 +22,6 @@ const user = {
   },
 
   /**
-   * 查找存在用户信息
-   * @param  {object} formData 查找的表单数据
-   * @return {object|null}      查找结果
-   */
-  async getExistOne (formData) {
-    let resultData = await userModel.getExistOne({
-      'username': formData.username
-    })
-    return resultData
-  },
-
-  /**
-   * 登录业务操作
-   * @param  {object} formData 登录表单信息
-   * @return {object}          登录业务操作结果
-   */
-  async signIn (formData) {
-    let result = {
-      success: false,
-      message: ''
-    }
-
-    let data = await userModel.getOneByUserNameAndPassword({
-      'password': sha1(formData.password),
-      'username': formData.username})
-    
-    if (data) {
-      let userId = data.id
-      result.success = true
-      result.message = userCode.SUCCESS_SIGN_IN
-      result.data = {
-        token: createToken(userId),
-        exp: 10
-      }
-    } else {
-      result.message = userCode.FAIL_USER_NAME_OR_PASSWORD_ERROR
-    }
-    
-    return result
-  },
-
-  /**
    * 根据用户ID查找用户业务操作
    * @param  {string} userId 用户ID
    * @return {object} 查找结果
