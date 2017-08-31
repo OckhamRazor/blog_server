@@ -59,7 +59,7 @@ const user = {
       where identity_type=? and identifier=?
       limit 1`
 
-    let inserts = [options.identity_type, options.identifier]
+    let inserts = [options.identityType, options.identifier]
     
     _sql = mysql.format(_sql, inserts)
     let result = await dbUtils.query(_sql)

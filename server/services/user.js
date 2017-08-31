@@ -53,7 +53,7 @@ const user = {
     }
 
     let data = await userAuthModel.getOneByIdentifierAndCredential({
-      'identity_type': 'default',
+      'identityType': 'default',
       'identifier': formData.username,
       'credential': sha1(formData.password)
     })
@@ -79,13 +79,14 @@ const user = {
    * @param {object} options 凭证类型、凭证 
    */
   async signInByOAuth (options) {
-    let userId
     let data = await userAuthModel.getOneByIdentifier({
-      'identity_type': options.identityType,
+      'identityType': options.identityType,
       'identifier': options.identifier
     })
-    
-    return data
+
+    return {
+      userId: data.user_id
+    }
   },
 
   /**
@@ -106,14 +107,14 @@ const user = {
       // 注册用户权限
       let signUpUserAuth = await userAuthModel.create({
         user_id: signUpUser.insertId,
-        identity_type: options.identity_type,
+        identity_type: options.identityType,
         identifier: options.identifier,
         credential: options.credential
       })
 
       if (signUpUserAuth) {
         return {
-          user_id: signUpUser.insertId
+          userId: signUpUser.insertId
         }
       } 
     }
@@ -148,7 +149,7 @@ const user = {
       let userInfo = await this.getUserInfoByGithub(token)
       // 验证登录
       let signInResult = await this.signInByOAuth({
-        'identity_type': 'github',
+        'identityType': 'github',
         'identifier': userInfo.id
       })
 
@@ -160,7 +161,7 @@ const user = {
           avatar: userInfo.avatar_url,
           introduction: userInfo.bio,
           github: userInfo.html_url,
-          identity_type: 'github',
+          identityType: 'github',
           identifier: userInfo.id,
           credential: token
         })
@@ -169,9 +170,9 @@ const user = {
           result.message = userCode.FAILED_GITHUB_OAUTH
           return result
         }
-        userId = signUpResult.user_id
+        userId = signUpResult.userId
       } else{
-        userId = signInResult.user_id
+        userId = signInResult.userId
       }
 
       result.success = true
@@ -241,7 +242,6 @@ const user = {
           reject(err)
         }
         let userInfo = JSON.parse(body)
-        console.log('userInfo:', userInfo)
         resolve(userInfo)
       })
     })
@@ -258,7 +258,6 @@ const user = {
       success: false,
       message: ''
     }
-
     let data = await userInfoModel.getUserInfoById(userId)
     const roleMap = [
       {value: 1, name: 'admin'},
