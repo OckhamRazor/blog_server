@@ -1,8 +1,4 @@
-/**
- * 逻辑文案管理
- */
-
-const userCode = {
+const code = {
   // ERROR
   ERROR_USER_NAME: '用户名长度为3-16位',
 
@@ -29,13 +25,19 @@ const userCode = {
 
   FAIL_USER_NO_EXIST: '用户不存在',
 
-  FAIL_USER_UPDATE: '用户信息更新失败',
+  FAIL_USER_INFO_UPDATE: '用户信息更新失败',
 
   FAILED_USER_INFO_READ: '获取用户信息失败',
 
   FAILED_USER_WRITE_OFF: '注销账户失败',
 
+  FAILED_USER_CREATE: '创建用户失败',
+
+  FAILED_GITHUB_OAUTH: 'Github 第三方登录失败',
+
   // SUCCESS
+  SUCCESS_USER_CREATE: '创建用户成功',
+
   SUCCESS_USER_UPDATE: '用户信息更新成功',
   
   SUCCESS_USER_INFO_READ: '获取用户信息成功',
@@ -45,4 +47,4 @@ const userCode = {
   SUCCESS_USER_WRITE_OFF: '注销账户成功'
 }
 
-module.exports = userCode
+module.exports = code

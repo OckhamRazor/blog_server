@@ -1,5 +1,5 @@
 const qiniu = require('qiniu')
-const config = require('../../config/config')
+const config = require('../../config/index')
 
 /**
  * 生成七牛云上传凭证

@@ -4,9 +4,9 @@
 const router = require('koa-router')()
 
 const api = require('./api')
-const error = require('./error')
+const page = require('./page')
 
 router.use('/api', api.routes(), api.allowedMethods())
-router.use('/error', error.routes(), error.allowedMethods())
+router.use('/', page.routes(), page.allowedMethods())
 
 module.exports = router

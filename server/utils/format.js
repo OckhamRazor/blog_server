@@ -7,11 +7,32 @@ function serializeJSON (obj) {
   for (var key in obj) {
     arr.push(key + '="' + obj[key] + '"')
   }
-
   result = arr.join(',')
   return result
 }
 
+/**
+ * 数组转字符串
+ */
+function arrToStr (arr) {
+  if (typeof arr === 'undefined' || !(arr instanceof Array)) {
+    return ''
+  }
+  return arr.join(',')
+}
+
+/**
+ * 字符串转数组
+ */
+function strToArr (str) {
+  if (typeof str === 'undefined' || str === '' || str === null) {
+    return []
+  }
+  return str.split(',')
+}
+
 module.exports = {
-  serializeJSON
+  serializeJSON,
+  arrToStr,
+  strToArr
 }

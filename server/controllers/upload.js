@@ -1,4 +1,4 @@
-const createUploadToken = require('../utils/token/upload_token')
+const uploadToken = require('../utils/token/upload_token')
 
 module.exports = {
   /**
@@ -6,7 +6,7 @@ module.exports = {
    * @param  {obejct} ctx 上下文对象
    */
   async getUploadToken (ctx) {
-    const token = createUploadToken()
+    const token = uploadToken.createToken()
     ctx.body = {
       token: token
     }

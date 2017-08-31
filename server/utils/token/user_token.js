@@ -1,5 +1,5 @@
-const jwt = require('jsonwebtoken')
-const config = require('../../config/config')
+const jwt = require('jsonwebtoken') 
+const config = require('../../config/index') 
 
 /**
  * 根据用户ID生成token凭证
@@ -13,6 +13,7 @@ function createUserToken (userId) {
   }, config.tokenKey, {
     expiresIn: '10h' // 过期时间设置为60s
   })
+  
   return token
 }
 
@@ -21,7 +22,7 @@ function createUserToken (userId) {
  * @param {object} ctx
  * @return {stirng} token 上传凭证
  */
-function checkUserToken (ctx, next) {
+async function checkUserToken (ctx, next) {
   const authorization = ctx.get('Authorization')
   if (authorization === '') {
     ctx.throw(401, 'no token detected in http header Authorization')
@@ -32,7 +33,7 @@ function checkUserToken (ctx, next) {
   } catch (err) {
     ctx.throw(401, 'invalid token')
   }
-  next()
+  await next()
 }
 
 /**

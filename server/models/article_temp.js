@@ -4,14 +4,14 @@
 const dbUtils = require('../utils/db_util')
 const mysql = require('mysql')
 
-const article = {
+const articleTemp = {
   /**
    * 创建文章信息
    * @param  {string} model    文章数据模型
    * @return {object|null}     执行结果
    */
   async create (model) {
-    let result = await dbUtils.insertData('article', model)
+    let result = await dbUtils.insertData('article_temp', model)
     return result
   },
 
@@ -21,7 +21,7 @@ const article = {
    * @return {object|null}        执行结果
    */
   async deleteById (articleId) {
-    let result = await dbUtils.deleteDataById('article', articleId)
+    let result = await dbUtils.deleteDataById('article_temp', articleId)
     return result
   },
 
@@ -31,7 +31,7 @@ const article = {
    * @return {object|null}        查找结果
    */
   async getArticleById (articleId) {
-    let result = await dbUtils.findDataById('article', articleId)
+    let result = await dbUtils.findDataById('article_temp', articleId)
     if (Array.isArray(result) && result.length > 0) { 
       result = result[0] 
     } else { 
@@ -47,7 +47,7 @@ const article = {
    */
   async updateArticleById (articleId, data) {
     let result = await dbUtils.updateData(
-      'article',
+      'article_temp',
       data,
       articleId
     )
@@ -61,7 +61,7 @@ const article = {
    */
   async getExistOne (articleId, data) {
     let _sql = `
-      SELECT id from article
+      SELECT id from article_temp
       where status!=1 and id=? 
       limit 1`
     
@@ -92,8 +92,8 @@ const article = {
     }
   
     let _sql = `
-      select ?? from article where
-    ` + _where
+    select ?? from article_temp where
+  ` + _where
     let _inserts = [['id', 'title', 'tag', 'category', 'author_id', 'create_time']]
     _sql = mysql.format(_sql, _inserts)
 
@@ -107,4 +107,4 @@ const article = {
   }
 }
 
-module.exports = article
+module.exports = articleTemp

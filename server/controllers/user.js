@@ -1,5 +1,6 @@
-const userInfoService = require('./../services/userInfo')
+const userService = require('./../services/user')
 const userToken = require('../utils/token/user_token')
+var request = require('request');
 
 module.exports = {
 
@@ -9,8 +10,21 @@ module.exports = {
    */
   async signIn (ctx) {
     let formData = ctx.request.body
-    let result = await userInfoService.signIn(formData)
+    let result = await userService.signIn(formData)
 
+    ctx.body = result
+  },
+
+  /**
+   * Github OAuth登录
+   * @param {object} ctx 
+   */
+  async signInByGithub (ctx) {
+    let data = ctx.request.body
+
+    let result = await userService.signInByGithub(data.code)
+    
+    console.log('result:', result)
     ctx.body = result
   },
 
@@ -19,8 +33,11 @@ module.exports = {
    * @param    {obejct} ctx 上下文对象
    */
   async getLoginUserInfo (ctx) {
-    const tokenInfo = userToken.decryptToken(ctx) // 解析token获取用户ID
-    let result = await userInfoService.getUserInfoById(tokenInfo.userId)
+    const authorization = ctx.get('Authorization') 
+    const token = authorization.split(' ')[1] 
+    const tokenInfo = userToken.decryptToken(token) // 解析token获取用户ID
+    
+    let result = await userService.getUserInfoById(tokenInfo.userId)
 
     ctx.body = result
   },
@@ -33,7 +50,7 @@ module.exports = {
     let result
     let formData = ctx.request.body
 
-    result = await userInfoService.updateUserInfoById(formData.id, formData)
+    result = await userService.updateUserInfoById(formData.id, formData)
     ctx.body = result
   }
 }
